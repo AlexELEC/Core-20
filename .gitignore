@@ -9,6 +9,9 @@
 # prebuild target binarys to provide
 /target/
 
+# private dir
+/private/
+
 # mkpkg temp
 mkpkg-temp
 
