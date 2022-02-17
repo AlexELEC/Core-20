@@ -287,6 +287,7 @@ post_makeinstall_target() {
     cp $PKG_DIR/scripts/kodi-after $INSTALL/usr/lib/kodi
     cp $PKG_DIR/scripts/kodi-safe-mode $INSTALL/usr/lib/kodi
     cp $PKG_DIR/scripts/kodi.sh $INSTALL/usr/lib/kodi
+    cp $PKG_DIR/scripts/kodi-tvlink $INSTALL/usr/lib/kodi
 
   if [ "$PROJECT" = "Amlogic-ce" ]; then
     cp $PKG_DIR/scripts/aml-wait-for-dispcap.sh $INSTALL/usr/lib/kodi
@@ -370,8 +371,35 @@ post_makeinstall_target() {
   xmlstarlet ed -L -d "/addons/addon[text()='skin.estouchy']" $ADDON_MANIFEST
   xmlstarlet ed -L --subnode "/addons" -t elem -n "addon" -v "repository.kodi.game" $ADDON_MANIFEST
   xmlstarlet ed -L --subnode "/addons" -t elem -n "addon" -v "$ADDON_REPO_ID" $ADDON_MANIFEST
+  xmlstarlet ed -L --subnode "/addons" -t elem -n "addon" -v "inputstream.ffmpegdirect" $ADDON_MANIFEST
   if [ -n "$DISTRO_PKG_SETTINGS" ]; then
     xmlstarlet ed -L --subnode "/addons" -t elem -n "addon" -v "$DISTRO_PKG_SETTINGS_ID" $ADDON_MANIFEST
+  fi
+
+  if [ -d $ROOT/addons ]; then
+    mkdir -p $INSTALL/usr/share/kodi/addons
+    for i in `ls $ROOT/addons | grep zip`
+    do
+      unzip $ROOT/addons/$i -d $INSTALL/usr/share/kodi/addons
+      xmlstarlet ed -L --subnode "/addons" -t elem -n "addon" -v "`unzip -p $ROOT/addons/$i */addon.xml | awk -F= '/addon\ id=/ { print $2 }' | awk -F'"' '{ print $2 }'`" $ADDON_MANIFEST
+    done
+  fi
+  if [ -d $PROJECT_DIR/$PROJECT/addons ]; then
+    mkdir -p $INSTALL/usr/share/kodi/addons
+    for i in `ls $PROJECT_DIR/$PROJECT/addons | grep zip`
+    do
+      unzip $PROJECT_DIR/$PROJECT/addons/$i -d $INSTALL/usr/share/kodi/addons
+      xmlstarlet ed -L --subnode "/addons" -t elem -n "addon" -v "`unzip -p $PROJECT_DIR/$PROJECT/addons/$i */addon.xml | awk -F= '/addon\ id=/ { print $2 }' | awk -F'"' '{ print $2 }'`" $ADDON_MANIFEST
+    done
+  fi
+
+  # install addons config AE
+  if [ -d $PKG_DIR/config/script.skinshortcuts ]; then
+      cp -R $PKG_DIR/config/script.skinshortcuts $INSTALL/usr/share/kodi/config
+  fi
+
+  if [ -d $PKG_DIR/config/skin.aeon.nox.silvo.ae ]; then
+      cp -R $PKG_DIR/config/skin.aeon.nox.silvo.ae $INSTALL/usr/share/kodi/config
   fi
 
   # more binaddons cross compile badness meh
@@ -401,4 +429,5 @@ post_install() {
   enable_service kodi.service
   enable_service kodi-lirc-suspend.service
   enable_service kodi-cleanpackagecache.service
+  enable_service kodi-tvlink.service
 }
