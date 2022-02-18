@@ -48,15 +48,25 @@ if [ ! -f $KODI_ROOT/userdata/guisettings.xml ] ; then
   fi
 fi
 
+# add default AE addons settings
+if [ ! -d $KODI_ROOT/userdata/addon_data/script.skinshortcuts ]; then
+  if [ -d /usr/share/kodi/config/script.skinshortcuts ]; then
+    mkdir -p $KODI_ROOT/userdata/addon_data
+    cp -R /usr/share/kodi/config/script.skinshortcuts $KODI_ROOT/userdata/addon_data
+  fi
+fi
+
+if [ ! -d $KODI_ROOT/userdata/addon_data/skin.aeon.nox.silvo.ae ]; then
+  if [ -d /usr/share/kodi/config/skin.aeon.nox.silvo.ae ]; then
+    mkdir -p $KODI_ROOT/userdata/addon_data
+    cp -R /usr/share/kodi/config/skin.aeon.nox.silvo.ae $KODI_ROOT/userdata/addon_data
+  fi
+fi
+
 KODI_ARGS=""
 
 echo "KODI_ARGS=\"$KODI_ARGS\"" > /run/libreelec/kodi.conf
-
-if [ "$(uname -m)" = "x86_64" ]; then
-  echo "MALLOC_MMAP_THRESHOLD_=524288" >> /run/libreelec/kodi.conf
-else #arm
-  echo "MALLOC_MMAP_THRESHOLD_=8192" >> /run/libreelec/kodi.conf
-fi
+echo "MALLOC_MMAP_THRESHOLD_=8192" >> /run/libreelec/kodi.conf
 
 if [ -f /storage/.config/kodi.conf ] ; then
   cat /storage/.config/kodi.conf >>/run/libreelec/kodi.conf
