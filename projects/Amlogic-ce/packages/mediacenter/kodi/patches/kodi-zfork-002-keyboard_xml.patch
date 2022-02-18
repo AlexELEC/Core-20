@@ -1,0 +1,83 @@
+diff -Naurp kodi/system/keymaps/keyboard.xml kodi-patch/system/keymaps/keyboard.xml
+--- kodi/system/keymaps/keyboard.xml	2021-01-27 12:26:50.000000000 +0200
++++ kodi-patch/system/keymaps/keyboard.xml	2021-01-27 18:51:26.000000000 +0200
+@@ -52,6 +52,7 @@
+       <m>Menu</m>
+       <n mod="ctrl">ActivateWindow(PlayerControls)</n>
+       <s>ActivateWindow(ShutdownMenu)</s>
++      <s mod="longpress">ShutDown()</s>
+       <escape>Back</escape>
+       <escape mod="longpress">Back</escape>
+       <i>Info</i>
+@@ -103,6 +104,11 @@
+       <j>ActivateWindow(RadioChannels)</j>
+       <k>ActivateWindow(TVRecordings)</k>
+       <b>ActivateWindow(TVTimers)</b>
++      <f1>ActivateWindow(TVChannels)</f1>
++      <f2>ActivateWindow(Videos)</f2>
++      <f3>ActivateWindow(Music)</f3>
++      <f4>ActivateWindow(Pictures)</f4>
++      <f5>ActivateWindow(Favourites)</f5>
+       <!-- PVR -->
+       <red>ActivateWindow(TVChannels)</red>
+       <green>ActivateWindow(Videos)</green>
+@@ -370,6 +376,7 @@
+       <o>PlayerProcessInfo</o>
+       <o mod="ctrl,shift">PlayerDebug</o>
+       <o mod="alt">PlayerDebugVideo</o>
++      <o mod="longpress">PlayerDebug</o>
+       <z>AspectRatio</z>
+       <zoom>AspectRatio</zoom>
+       <t>ShowSubtitles</t>
+@@ -383,12 +390,11 @@
+       <down mod="longpress">NextSubtitle</down>
+       <left mod="alt">PlayerControl(tempodown)</left>
+       <right mod="alt">PlayerControl(tempoup)</right>
+-      <a>AudioDelay</a>
+-      <a mod="ctrl">AudioNextLanguage</a>
++      <a>AudioNextLanguage</a>
++      <a mod="longpress">AudioDelay</a>
+       <leftquote>AudioNextLanguage</leftquote>
+       <escape>Fullscreen</escape>
+       <c>Playlist</c>
+-      <v>ActivateWindow(Teletext)</v>
+       <v mod="ctrl">VideoNextStream</v>
+       <text>ActivateWindow(Teletext)</text>
+       <up mod="ctrl">SubtitleShiftUp</up>
+@@ -578,7 +584,7 @@
+       <zoom>AspectRatio</zoom>
+       <t>ShowSubtitles</t>
+       <l>NextSubtitle</l>
+-      <a>AudioDelay</a>
++      <a>AudioNextLanguage</a>
+       <escape>Fullscreen</escape>
+       <return>Select</return>
+       <enter>Select</enter>      <!-- backspace>Fullscreen</backspace -->
+@@ -683,21 +689,23 @@
+   </NumericInput>
+   <FullscreenLiveTV>
+     <keyboard>
+-      <left>StepBack</left>
+-      <right>StepForward</right>
+-      <up>Up</up>
+-      <down>Down</down>
++      <left>ActivateWindow(PVROSDChannels)</left>
++      <right>ActivateWindow(PVRChannelGuide)</right>
++      <up>StepForward</up>
++      <down>StepBack</down>
+       <return>OSD</return>
+       <enter>OSD</enter>
+       <g>ActivateWindow(PVRChannelGuide)</g>
+       <c>ActivateWindow(PVROSDChannels)</c>
+       <return mod="longpress">ActivateWindow(PVROSDChannels)</return>
+       <enter mod="longpress">ActivateWindow(PVROSDChannels)</enter>
++      <a>AudioNextLanguage</a>
+       <leftquote>AudioNextLanguage</leftquote>
+       <pageup>ChannelUp</pageup>
+       <pagedown>ChannelDown</pagedown>
+       <period mod="longpress">ChannelNumberSeparator</period>
+       <numpadperiod>ChannelNumberSeparator</numpadperiod>
++      <i mod="longpress">RunAddon(script.tvlink.conrol)</i>
+     </keyboard>
+   </FullscreenLiveTV>
+   <FullscreenRadio>

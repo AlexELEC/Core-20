@@ -1,0 +1,11 @@
+diff -Naurp kodi/system/keymaps/keyboard.xml kodi-patch/system/keymaps/keyboard.xml
+--- kodi/system/keymaps/keyboard.xml	2021-07-12 19:05:27.050203599 +0300
++++ kodi-patch/system/keymaps/keyboard.xml	2021-07-12 19:50:27.000000000 +0300
+@@ -173,6 +173,7 @@
+       <k mod="ctrl,shift">ReloadKeymaps</k>
+       <d mod="ctrl,shift">ToggleDebug</d>
+       <r mod="ctrl,shift">ToggleDirtyRegionVisualization</r>
++      <escape mod="ctrl">RunAddon(script.key.layout)</escape>
+       <f11>HDRToggle</f11>
+     </keyboard>
+   </global>
