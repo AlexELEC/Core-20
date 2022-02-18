@@ -1,0 +1,5 @@
+1.0.1
+- For Kodi-19 Matrix
+
+1.0.0
+- First Release
