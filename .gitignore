@@ -10,7 +10,7 @@
 /target/
 
 # private dir
-/private/
+/packages/xmedia/tvservice/src-tvlink/
 
 # mkpkg temp
 mkpkg-temp
