@@ -17,7 +17,7 @@
   GREETING4=""
 
 # Root password to integrate in the target system
-  ROOT_PASSWORD="coreelec"
+  ROOT_PASSWORD="mcpc"
 
 # Partition labels for USB/SD installation media
   DISTRO_BOOTLABEL="COREELEC"
