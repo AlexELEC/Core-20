@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Copyright (C) 2009-2016 Lukas Rusak (lrusak@libreelec.tv)
 
-. config/options
+. config/repo-options
 
 update_addons_xml() {
   echo "[*] cleanup addons ..."
@@ -46,7 +46,9 @@ update_addons_xml() {
     mv $line.tmp $line
     cd $localdir
 
-    md5sum addons.xml > addons.xml.md5
+    [ -e "addons.xml.gz" ] && rm addons.xml.gz
+    gzip addons.xml
+    sha256sum addons.xml.gz > addons.xml.gz.sha256
     cd $pwd
   done
   rm -rf .addons
@@ -58,6 +60,7 @@ touch_addons_xml() {
       for DEVICE in $(ls -1 projects/$PROJECT/devices); do
         for archfile in projects/$PROJECT/devices/$DEVICE/linux/linux.*.conf; do
           ARCH=`echo $archfile | sed -n '$s/\.conf//;$s/.*\.//p'`
+          [ "$ARCH" = "aarch64" -a "$DEVICE" = "Amlogic-ng" ] && ARCH="arm"
           if [ ! -d target/addons/$ADDON_VERSION/$DEVICE/$ARCH ]; then
             break
           fi
@@ -81,16 +84,8 @@ touch_addons_xml() {
 }
 
 upload() {
-  if [ -f .work/repoconfig ] ; then
-    . .work/repoconfig
-  fi
-  if [ -z "$RSYNC_REPO" ] ; then
-    echo "*** ERROR: \$RSYNC_REPO not set. see .work/repoconfig ***"
-    exit 0
-  fi
   touch_addons_xml
   update_addons_xml
-  rsync -av --progress --delete "$RSYNC_SHELL" target/addons/$ADDON_VERSION $RSYNC_REPO
 }
 
 build() {
