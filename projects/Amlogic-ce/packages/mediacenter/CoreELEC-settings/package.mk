@@ -29,6 +29,8 @@ post_makeinstall_target() {
 
   $TOOLCHAIN/bin/python -Wi -t -B $TOOLCHAIN/lib/$PKG_PYTHON_VERSION/compileall.py $ADDON_INSTALL_DIR/oe.py -f
   rm -rf $ADDON_INSTALL_DIR/oe.py
+
+  chmod -R +x $ADDON_INSTALL_DIR/resources/bin/*
 }
 
 post_install() {

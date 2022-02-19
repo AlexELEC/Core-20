@@ -1,0 +1,62 @@
+diff -Naurp CoreELEC-settings/language/resource.language.en_gb/strings.po CoreELEC-settings-patch/language/resource.language.en_gb/strings.po
+--- CoreELEC-settings/language/resource.language.en_gb/strings.po	2022-02-16 12:16:29.000000000 +0200
++++ CoreELEC-settings-patch/language/resource.language.en_gb/strings.po	2022-02-19 09:30:53.000000000 +0200
+@@ -1351,3 +1351,27 @@ msgstr ""
+ msgctxt "#33524"
+ msgid "[COLOR red]Are you sure to change this value?[/COLOR][CR]Please enter confirmation code '%s'"
+ msgstr ""
++
++########## TV Service #########
++
++msgctxt "#43000"
++msgid "TV services"
++msgstr ""
++
++msgctxt "#4300"
++msgid "Configure TVLINK server."
++msgstr ""
++
++### TVLINK ###
++
++msgctxt "#42025"
++msgid "TVLINK server"
++msgstr ""
++
++msgctxt "#42026"
++msgid "Enable TVLINK"
++msgstr ""
++
++msgctxt "#4226"
++msgid "TVLINK is a restreamer and aggregator of IPTV channels (http://ip-address:2020)."
++msgstr ""
+diff -Naurp CoreELEC-settings/language/resource.language.ru_ru/strings.po CoreELEC-settings-patch/language/resource.language.ru_ru/strings.po
+--- CoreELEC-settings/language/resource.language.ru_ru/strings.po	2022-02-16 12:16:29.000000000 +0200
++++ CoreELEC-settings-patch/language/resource.language.ru_ru/strings.po	2022-02-19 09:34:05.000000000 +0200
+@@ -1143,3 +1143,27 @@ msgstr "Общественные"
+ msgctxt "#32400"
+ msgid "Idle Timeout"
+ msgstr "Таймаут неактивности"
++
++########## TV Service #########
++
++msgctxt "#43000"
++msgid "TV services"
++msgstr "ТВ сервисы"
++
++msgctxt "#4300"
++msgid "Configure TVLINK server."
++msgstr "Настройки сервера TVLINK."
++
++### TVLINK ###
++
++msgctxt "#42025"
++msgid "TVLINK server"
++msgstr "TVLINK сервер"
++
++msgctxt "#42026"
++msgid "Enable TVLINK"
++msgstr "Включить TVLINK"
++
++msgctxt "#4226"
++msgid "TVLINK is a restreamer and aggregator of IPTV channels (http://ip-address:2020)."
++msgstr "TVLINK - рестример и агрегатор каналов IPTV (http://ip-address:2020)."

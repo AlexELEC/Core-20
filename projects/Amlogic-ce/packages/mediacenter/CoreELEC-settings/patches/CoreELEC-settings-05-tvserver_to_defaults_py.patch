@@ -1,0 +1,44 @@
+diff -Naurp CoreELEC-settings/src/defaults.py CoreELEC-settings-patch/src/defaults.py
+--- CoreELEC-settings/src/defaults.py	2022-02-19 08:46:15.000000000 +0200
++++ CoreELEC-settings-patch/src/defaults.py	2022-02-19 09:21:05.000000000 +0200
+@@ -14,6 +14,10 @@ XBMC_THUMBNAILS = XBMC_USER_HOME + "/use
+ CONFIG_CACHE = os.environ.get('CONFIG_CACHE', '/storage/.cache')
+ USER_CONFIG = os.environ.get('USER_CONFIG', '/storage/.config')
+ 
++BIN_DIR_EXT = '%s/addons/service.coreelec.settings/resources/bin' % XBMC_USER_HOME
++BIN_DIR_INT = '/usr/share/kodi/addons/service.coreelec.settings/resources/bin'
++SCRIPT_DIR = lambda : (BIN_DIR_EXT if os.path.exists(BIN_DIR_EXT) else BIN_DIR_INT)
++
+ ################################################################################
+ # Connamn Module
+ ################################################################################
+@@ -80,6 +84,11 @@ system = {
+     'RESTORE_DIR': '/storage/.restore/',
+     }
+ 
++tvserver = {
++    'ENABLED'        : True,
++    'TVLINK_GET_SRC' : "%s/tvlink-get.sh" % SCRIPT_DIR(),
++    }
++
+ about = {'ENABLED': True}
+ 
+ hardware = {'ENABLED': True}
+@@ -94,4 +103,5 @@ _services = {
+     'obexd': ['obex.service'],
+     'crond': ['cron.service'],
+     'iptables': ['iptables.service'],
++    'tvlink': ['tvlink.service'],
+     }
+diff -Naurp CoreELEC-settings/src/resources/lib/modules/services.py CoreELEC-settings-patch/src/resources/lib/modules/services.py
+--- CoreELEC-settings/src/resources/lib/modules/services.py	2022-02-16 12:16:29.000000000 +0200
++++ CoreELEC-settings-patch/src/resources/lib/modules/services.py	2022-02-19 09:22:55.000000000 +0200
+@@ -724,7 +724,7 @@ class services:
+             SSHchange = False
+             newpwd = xbmcDialog.input(self.oe._(746))
+             if newpwd:
+-                if newpwd == "coreelec":
++                if newpwd == "mcpc":
+                     self.oe.execute('cp -fp /usr/cache/shadow /storage/.cache/shadow')
+                     readout3 = "Retype password"
+                 else:
